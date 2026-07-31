@@ -1,6 +1,6 @@
 import requests
 
-SOURCE_URL = "https://services.tamigo.com/Calender/a9ef842a-b2b2-4f82-a875-4668eb3715b9/calendar.ics"  # jouw Tamigo-URL
+SOURCE_URL = "https://services.tamigo.com/Calendar/a9ef842a-b2b2-4f82-a875-4668eb3715b9/Calendar.ics"  # jouw Tamigo-URL
 OUTPUT_FILE = "tamigo_raw.ics"
 
 def main():
