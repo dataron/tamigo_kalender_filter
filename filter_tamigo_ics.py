@@ -1,6 +1,7 @@
 import requests
+import os
 
-SOURCE_URL = "https://services.tamigo.com/Calendar/a9ef842a-b2b2-4f82-a875-4668eb3715b9/Calendar.ics"  # jouw Tamigo-URL
+SOURCE_URL = os.getenv("TAMIGO_URL")
 OUTPUT_FILE = "tamigo_filtered.ics"
 
 FIXED_SUMMARY = "Narda | Werken ✂️ ✏️ 🧶"
