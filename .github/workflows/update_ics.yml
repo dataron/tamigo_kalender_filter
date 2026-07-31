@@ -1,10 +1,12 @@
+name: Update Tamigo Filtered ICS
+
 on:
   schedule:
-    - cron: "0 3 * * *"  # elk uur; pas aan naar bv. 0 3 * * * voor elke nacht om 03:00
-  workflow_dispatch:      # handmatig starten via GitHub UI
+    - cron: "0 5 * * *"   # elke dag om 05:00
+  workflow_dispatch:       # handmatig starten
 
 jobs:
-  build:
+  update:
     runs-on: ubuntu-latest
 
     steps:
