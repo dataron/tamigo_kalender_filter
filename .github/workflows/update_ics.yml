@@ -2,7 +2,7 @@ name: Update Tamigo Filtered ICS
 
 on:
   schedule:
-    - cron: "0 5 * * *"   # elke dag om 05:00
+    - cron: "0 5 * * *"   # elke dag om 05:00 (UTC, maar dit is prima voor jouw use-case)
   workflow_dispatch:       # handmatig starten
 
 jobs:
@@ -29,10 +29,17 @@ jobs:
         run: |
           python filter_tamigo_ics.py
 
-      - name: Commit updated ICS
+      - name: Commit updated ICS (alleen bij wijzigingen)
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add tamigo_filtered.ics
-          git commit -m "Update filtered ICS" || echo "No changes to commit"
-          git push
+
+          # Check of er wijzigingen zijn in tamigo_filtered.ics
+          if git diff --quiet tamigo_filtered.ics; then
+            echo "Geen wijzigingen in tamigo_filtered.ics"
+          else
+            echo "Wijzigingen gevonden, committen..."
+            git add tamigo_filtered.ics
+            git commit -m "Update filtered ICS"
+            git push
+          fi
