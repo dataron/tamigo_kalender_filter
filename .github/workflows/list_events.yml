@@ -1,0 +1,34 @@
+name: Inspect Tamigo Events
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: |
+          pip install requests
+
+      - env:
+          TAMIGO_URL: ${{ secrets.TAMIGO_URL }}
+        run: |
+          python - << 'EOF'
+          import os, requests
+
+          url = os.getenv("TAMIGO_URL")
+          text = requests.get(url).text
+
+          events = text.split("BEGIN:VEVENT")
+          for e in events[1:]:
+              print("\n--- EVENT ---")
+              print("BEGIN:VEVENT" + e.split("END:VEVENT")[0] + "END:VEVENT")
+              print("--- EINDE EVENT ---\n")
+          EOF
